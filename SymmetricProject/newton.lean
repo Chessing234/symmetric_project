@@ -38,10 +38,14 @@ theorem newton_identity (n k : ℕ) (h: k+2 ≤ n) : ∀ s : ℕ → ℝ, attain
     rw [hs' 0, hs' 1, hs' 2] at h3
     -- thanks to Heather Macbeth for simplifications to the field calculations below.
     field_simp at h3
+    -- The multiplier is a square, so the comparison does not depend on the sign of s(k+2).
+    have hsq : 0 ≤ s (k + 2) ^ 2 := sq_nonneg _
     calc s k * s (k + 2) = (s k / s (k + 2)) * s (k + 2) ^ 2 := by
           field_simp
           ring
-      _ ≤ (s (k + 1) ^ 2 / s (k + 2) ^ 2) * s (k + 2) ^ 2 := by gcongr
+      _ ≤ (s (k + 1) ^ 2 / s (k + 2) ^ 2) * s (k + 2) ^ 2 := by
+          gcongr
+          exact hsq
       _ = s (k + 1) ^ 2 := by field_simp
 
   -- third step: reduce to (n,k)=(2,0)
