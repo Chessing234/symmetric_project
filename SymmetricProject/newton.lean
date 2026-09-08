@@ -24,7 +24,8 @@ theorem newton_identity (n k : ℕ) (h: k+2 ≤ n) : ∀ s : ℕ → ℝ, attain
   -- second step: reduce to (n,k) = (k+2,0)
 
   suffices : ∀ s : ℕ → ℝ, attainable (k+2) s → s 0 * s 2 ≤ s 1^2
-  . rcases em (s (k+2) = 0) with vanish | non_vanish
+  . -- If s(k+2) = 0 the identity is immediate and we must not divide.
+    rcases em (s (k+2) = 0) with vanish | non_vanish
     . rw [vanish]
       simp
       nlinarith
@@ -45,6 +46,7 @@ theorem newton_identity (n k : ℕ) (h: k+2 ≤ n) : ∀ s : ℕ → ℝ, attain
           ring
       _ ≤ (s (k + 1) ^ 2 / s (k + 2) ^ 2) * s (k + 2) ^ 2 := by
           gcongr
+          -- hsq is 0 ≤ s(k+2)²; without it gcongr cannot multiply the ratio inequality.
           exact hsq
       _ = s (k + 1) ^ 2 := by field_simp
 
