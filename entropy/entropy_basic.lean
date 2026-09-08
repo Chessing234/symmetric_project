@@ -111,6 +111,7 @@ lemma h_cont : ContinuousOn h (Set.Icc 0 1) := by
   . simp
   . simp [h]
   . simp [h]
+  -- squeeze between 0 and the explicit upper bound, both continuous at 0 on [0,1]
   . intro y hy; simp at hy ⊢
     exact h_nonneg hy.1 hy.2
   intro y hy; simp at hy ⊢
@@ -121,6 +122,9 @@ noncomputable def h_mul (x : ℝ) : ℝ := -x * log x
 
 lemma h_eq_mul {x : ℝ} (hx : x ≠ 0) : h x = h_mul x := by
   simp [h, h_mul, hx]
+
+lemma h_of_pos {x : ℝ} (hx : 0 < x) : h x = -x * log x := by
+  rw [h_eq_mul hx.ne']; rfl
 
 lemma h_zero : h 0 = 0 := by simp [h]
 
