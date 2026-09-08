@@ -48,7 +48,9 @@ theorem newton_identity (n k : ℕ) (h: k+2 ≤ n) : ∀ s : ℕ → ℝ, attain
           gcongr
           -- hsq is 0 ≤ s(k+2)²; without it gcongr cannot multiply the ratio inequality.
           exact hsq
-      _ = s (k + 1) ^ 2 := by field_simp
+      _ = s (k + 1) ^ 2 := by
+          -- cancel the square introduced to clear the denominator
+          field_simp
 
   -- third step: reduce to (n,k)=(2,0)
   clear s h1
