@@ -42,6 +42,7 @@ theorem newton_identity (n k : ℕ) (h: k+2 ≤ n) : ∀ s : ℕ → ℝ, attain
     -- The multiplier is a square, so the comparison does not depend on the sign of s(k+2).
     have hsq : 0 ≤ s (k + 2) ^ 2 := sq_nonneg _
     calc s k * s (k + 2) = (s k / s (k + 2)) * s (k + 2) ^ 2 := by
+          -- rewrite as the reflected ratio times the square of s(k+2)
           field_simp
           ring
       _ ≤ (s (k + 1) ^ 2 / s (k + 2) ^ 2) * s (k + 2) ^ 2 := by
