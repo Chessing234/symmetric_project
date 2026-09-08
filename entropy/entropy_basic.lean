@@ -130,6 +130,7 @@ lemma h_zero : h 0 = 0 := by simp [h]
 
 /-- The differentiability of h. -/
 lemma h_diff : DifferentiableOn ℝ h (Set.Ioo 0 1) := by
+  -- On (0,1) the piecewise definition agrees with -x log x, which is differentiable there.
   apply DifferentiableOn.congr (g := h_mul)
   · unfold h_mul
     apply DifferentiableOn.mul
@@ -146,6 +147,7 @@ lemma h_diff : DifferentiableOn ℝ h (Set.Ioo 0 1) := by
 /-- The derivative of h. -/
 lemma h_deriv {x : ℝ} (hx: 0 < x) : deriv h x = - log x + (- 1) := by
   have hne : x ≠ 0 := hx.ne'
+  -- derivatives see a neighbourhood, so replace h by h_mul off a neighbourhood of 0.
   have heq : deriv h x = deriv h_mul x := by
     apply Filter.EventuallyEq.deriv_eq
     filter_upwards [eventually_ne_nhds hne] with y hy
