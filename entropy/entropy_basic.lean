@@ -24,6 +24,7 @@ lemma h_nonneg {x : ℝ} (h1 : 0 ≤ x) (h2 : x ≤ 1) : 0 ≤ h x := by
   unfold h
   split_ifs with hx
   . simp
+  -- x ≠ 0, so this is -x log x, and log x ≤ 0 on (0,1]
   rw [neg_mul_comm]
   apply mul_nonneg h1
   simp
